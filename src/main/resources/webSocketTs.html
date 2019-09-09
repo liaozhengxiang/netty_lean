@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="application/javascript">
+
+
+    let ws;
+
+    if (!window.WebSocket) {
+        alert("您的浏览器不支持webSocket")
+    } else {
+        ws = new WebSocket("ws://localhost:8899/ws")
+
+        ws.onclose = function (event) {
+            let recvMsg = document.getElementById("recvMsg");
+            recvMsg.value = recvMsg.value + "\n" + "连接已关闭";
+        };
+
+        ws.onmessage = function (event) {
+            let recvMsg = document.getElementById("recvMsg");
+            recvMsg.value = recvMsg.value + "\n" + event.data
+        };
+
+        ws.onopen = function (event) {
+            let recvMsg = document.getElementById("recvMsg");
+            recvMsg.value = recvMsg.value + "\n" + "连接已开启";
+        }
+    }
+
+
+    function clearSendMsg() {
+        document.getElementById("sendMsg").value = "";
+    }
+
+    function send(message) {
+        if(!window.WebSocket) {
+            return;
+        }
+        if(ws.readyState === WebSocket.OPEN) {
+            ws.send(message);
+        } else {
+            alert("连接尚未开启！");
+        }
+    }
+
+</script>
+
+<body>
+<form onsubmit="return false;">
+    <textarea id="sendMsg" name="sendMsg" style="width: 200px ;height:200px"></textarea>
+    <input type="button" id="sendBtn" value="发送消息" onclick="send(this.form.sendMsg.value);">
+    <input type="button" id="clearBtn" onclick="clearSendMsg()" value="清空发送内容">
+
+    <h3>服务端输出内容：</h3>
+    <textarea id="recvMsg" style="width: 200px ;height:200px"></textarea>
+</form>
+
+
+</body>
+
+
+</html>
