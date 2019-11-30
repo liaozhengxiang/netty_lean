@@ -1,6 +1,5 @@
 package com.liao.netty.chat;
 
-import com.sun.xml.internal.ws.util.StringUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
