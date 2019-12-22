@@ -16,6 +16,7 @@ public class StreamTest {
             System.out.println("key:"+key+" value:"+value);
         });
 
+
 //        String[] strings = test.toArray(String[]::new);
 //
 //        String[] strArr=new String[3];
